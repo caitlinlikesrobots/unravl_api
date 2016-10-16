@@ -1,0 +1,175 @@
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20161016205548)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (28.0ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20161016205548)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20161016205548"]]
+  [1m[36m (6.1ms)[0m  [1mCOMMIT[0m
+Migrating to CreateBooks (20161016205848)
+  [1m[35m (6.3ms)[0m  BEGIN
+  [1m[36m (9.6ms)[0m  [1mCREATE TABLE "books" ("id" serial primary key, "title" character varying, "length" integer, "author" character varying, "synopsis" text, "reading_level" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20161016205848"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateChapters (20161016210000)
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "chapters" ("id" serial primary key, "title" character varying, "body" text, "book_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20161016210000"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateSentences (20161016210118)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "sentences" ("id" serial primary key, "words" character varying, "chapter_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20161016210118"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateRounds (20161016210210)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE "rounds" ("id" serial primary key, "user_id" integer, "chapter_id" integer, "sentence_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20161016210210"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (2.2ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'books'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.9ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'chapters'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.5ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'rounds'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'sentences'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "louisa_beatty@kreigerrenner.name"], ["password_digest", "$2a$10$r/XTdaVpPVsZu2az1s8UmOFXuieO75bFziCx05srFxv51GEkf3QcG"], ["created_at", "2016-10-16 21:15:18.778906"], ["updated_at", "2016-10-16 21:15:18.778906"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "kenton@pricebernhard.org"], ["password_digest", "$2a$10$coz.kasuG9iHv77IyowhVeXybZzF1Y.XSw30JoRtlAvwjJYIIrmGq"], ["created_at", "2016-10-16 21:15:18.849899"], ["updated_at", "2016-10-16 21:15:18.849899"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "marlene@leffler.org"], ["password_digest", "$2a$10$Rlrr8FQHpVaiu32nJTzrMOAiF2C3e1DMw1lM0hvaYNzKOOVrUadBa"], ["created_at", "2016-10-16 21:15:18.916247"], ["updated_at", "2016-10-16 21:15:18.916247"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "jailyn@crooksjerde.co"], ["password_digest", "$2a$10$Luw9IYaEUoWG2MB.kkWrXe771sLOdLnTG7ACXkB/zTGhS0FQZjXJa"], ["created_at", "2016-10-16 21:15:18.996880"], ["updated_at", "2016-10-16 21:15:18.996880"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "jeremie@bosco.biz"], ["password_digest", "$2a$10$js8VHM2jJ9eqlW975rnLwe.2iIb0DW9NXWEuKUbr2JXtS0OtBmhDq"], ["created_at", "2016-10-16 21:15:19.078522"], ["updated_at", "2016-10-16 21:15:19.078522"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "books" ("title", "length", "author", "synopsis", "reading_level", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Dr. Dino Goes to the City"], ["length", 76], ["author", "Dr. Philip Seymour Hoffman"], ["synopsis", "It's a great book about a doctor dinosaur."], ["reading_level", 1], ["created_at", "2016-10-16 21:15:19.089153"], ["updated_at", "2016-10-16 21:15:19.089153"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "nils@keeling.com"], ["password_digest", "$2a$10$0HNtsj3TZrqH46DNlwpRcumICbJWO1UivWdHd7BmIAaxvC6GS5LSi"], ["created_at", "2016-10-16 21:15:36.017098"], ["updated_at", "2016-10-16 21:15:36.017098"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "robert@kautzerbernier.org"], ["password_digest", "$2a$10$qmXFhmG.9aazzwCOf.vVAOiXnX7evFxnrWNRkFCbSNAb1UvphNFOe"], ["created_at", "2016-10-16 21:15:36.096359"], ["updated_at", "2016-10-16 21:15:36.096359"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "elinore@reichelturcotte.org"], ["password_digest", "$2a$10$FpSm6P16OVQJFnU20Ou8JO1d/LHDt6N4kZ/39sw4M5D7GvoojgzMK"], ["created_at", "2016-10-16 21:15:36.180289"], ["updated_at", "2016-10-16 21:15:36.180289"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "retta@hilpert.com"], ["password_digest", "$2a$10$8EaVipROeN54n5C1hhbtN.XdqTl4EdsWXLpfraqBKQ2kUGUIOsO8C"], ["created_at", "2016-10-16 21:15:36.255188"], ["updated_at", "2016-10-16 21:15:36.255188"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "alfred@wolff.io"], ["password_digest", "$2a$10$txUgoji1qB9...mimKY8wOAwPqAZEUA.CIXn63c4awD8dc1PvhUU2"], ["created_at", "2016-10-16 21:15:36.340991"], ["updated_at", "2016-10-16 21:15:36.340991"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "books" ("title", "length", "author", "synopsis", "reading_level", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Dr. Dino Goes to the City"], ["length", 76], ["author", "Dr. Philip Seymour Hoffman"], ["synopsis", "It's a great book about a doctor dinosaur."], ["reading_level", 1], ["created_at", "2016-10-16 21:15:36.352039"], ["updated_at", "2016-10-16 21:15:36.352039"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "madaline.pollich@fayadams.name"], ["password_digest", "$2a$10$a2p4lTM0XNQjcwdRJTG7HOEXQYcGL4bpOHiTWX/dClsAv1PEr9gry"], ["created_at", "2016-10-16 21:16:06.418109"], ["updated_at", "2016-10-16 21:16:06.418109"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "bernadette_spencer@okonbogan.info"], ["password_digest", "$2a$10$8tXusmNCPwaNxuuc3LENye8bv5sqlhUsOMZ0r3tooUwXDtWn5BxhW"], ["created_at", "2016-10-16 21:16:06.498818"], ["updated_at", "2016-10-16 21:16:06.498818"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "clarabelle.rippin@altenwerth.net"], ["password_digest", "$2a$10$OpO91JlhgIn/efCwEO/Ta.l7M3OxoT13ruMpSNmRKPODwTHdWL7nm"], ["created_at", "2016-10-16 21:16:06.575295"], ["updated_at", "2016-10-16 21:16:06.575295"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "jaylen@legrosprosacco.name"], ["password_digest", "$2a$10$jtYAkyG5DBtdqveJy/NqDeuZPdkOwIDbOcOqKvr0xRmlJHGo.CJR2"], ["created_at", "2016-10-16 21:16:06.642204"], ["updated_at", "2016-10-16 21:16:06.642204"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "ottis.pfannerstill@mcculloughswaniawski.name"], ["password_digest", "$2a$10$XBt7gNH5PpSo8Xchfx8XIOtUw0YYmsVgIUvEqadpQTcwpx1H4cp.S"], ["created_at", "2016-10-16 21:16:06.724349"], ["updated_at", "2016-10-16 21:16:06.724349"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "books" ("title", "length", "author", "synopsis", "reading_level", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "Dr. Dino Goes to the City"], ["length", 76], ["author", "Dr. Philip Seymour Hoffman"], ["synopsis", "It's a great book about a doctor dinosaur."], ["reading_level", 1], ["created_at", "2016-10-16 21:16:06.734443"], ["updated_at", "2016-10-16 21:16:06.734443"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "chapters" ("body", "title", "book_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "This morning, Dr. Dino decided to go to the city. He was very excited, almost too excited."], ["title", "A Trip to the City"], ["book_id", 1], ["created_at", "2016-10-16 21:16:06.745623"], ["updated_at", "2016-10-16 21:16:06.745623"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "sentences" ("words", "chapter_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["words", "He was very excited, almost too excited."], ["chapter_id", 1], ["created_at", "2016-10-16 21:16:06.754343"], ["updated_at", "2016-10-16 21:16:06.754343"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "rounds" ("user_id", "chapter_id", "sentence_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 4], ["chapter_id", 1], ["sentence_id", 1], ["created_at", "2016-10-16 21:16:06.761983"], ["updated_at", "2016-10-16 21:16:06.761983"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mBook Load (0.7ms)[0m  SELECT "books".* FROM "books" INNER JOIN "chapters" ON "books"."id" = "chapters"."book_id" INNER JOIN "rounds" ON "chapters"."id" = "rounds"."chapter_id" WHERE "rounds"."user_id" = $1  [["user_id", 4]]
+  [1m[36mChapter Load (0.6ms)[0m  [1mSELECT "chapters".* FROM "chapters" INNER JOIN "rounds" ON "chapters"."id" = "rounds"."chapter_id" WHERE "rounds"."user_id" = $1[0m  [["user_id", 4]]
+  [1m[35mSentence Load (0.6ms)[0m  SELECT "sentences".* FROM "sentences" INNER JOIN "rounds" ON "sentences"."id" = "rounds"."sentence_id" WHERE "rounds"."user_id" = $1  [["user_id", 4]]
+  [1m[36mRound Load (0.3ms)[0m  [1mSELECT "rounds".* FROM "rounds" WHERE "rounds"."user_id" = $1[0m  [["user_id", 4]]
+
+
+Started GET "/" for ::1 at 2016-10-16 16:22:05 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/caitlinjohnson/.rbenv/versions/2.1.5/lib/ruby/gems/2.1.0/gems/railties-4.2.6/lib/rails/templates/rails/welcome/index.html.erb (2.7ms)
+Completed 200 OK in 13ms (Views: 12.7ms | ActiveRecord: 0.0ms)
